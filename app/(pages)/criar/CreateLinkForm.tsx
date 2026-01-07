@@ -1,24 +1,39 @@
 "use client";
 
+import { createLink } from "@/app/actions/create-link";
+import { verifyLink } from "@/app/actions/verify-link";
 import Button from "@/app/components/ui/button";
 import TextInput from "@/app/components/ui/text-input";
 import { sanitizeLink } from "@/app/lib/utils";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function CreateLinkForm() {
+  const router = useRouter()
+
   const [erro, setError] = useState("");
   const [link, setLink] = useState("");
 
   function handleLinkChange(e: ChangeEvent<HTMLInputElement>) {
     setLink(sanitizeLink(e.target.value));
+    setError("")
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>){
+  async function handleSubmit(e: FormEvent<HTMLFormElement>){
     e.preventDefault()
 
+    // Usuário não digita o link
     if(link.length === 0){
       return setError("Escolha um link!")
     }
+
+    // Usuário digita um link já existente
+    const isLinkTaken = await verifyLink(link)
+    if(isLinkTaken) return setError("Desculpe, este link já está em uso.")
+
+    // Criar o perfil 
+    await createLink(link)
+    router.push(`/${link}`)
   }
   
   return (

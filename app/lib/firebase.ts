@@ -24,5 +24,18 @@ const firebaseApp = !getApps().length
     })
   : getApps()[0];
 
+export async function getDownloadURLFromPath(path?: string) {
+  if (!path) return;
+
+  const file = storage.file(path);
+
+  const [url] = await file.getSignedUrl({
+    action: "read",
+    expires: "03-01-2500", // Não deixa expirar
+  });
+  
+  return url;
+}
+
 export const db = getFirestore(firebaseApp)
 export const storage = getStorage(firebaseApp).bucket()

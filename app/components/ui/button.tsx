@@ -6,7 +6,8 @@ export default function Button({
   ...props 
 }: { children: React.ReactNode; variant?: "primary" | "secondary" | "ghost" } & React.ButtonHTMLAttributes<HTMLButtonElement>){
   return (
-    <button 
+    <button
+      {...props}
       className={cn(
         "p-3 text-white rounded-xl font-bold whitespace-nowrap hover:opacity-95 cursor-pointer disabled:opacity-70",
         variant === 'primary' && 'bg-accent-purple',

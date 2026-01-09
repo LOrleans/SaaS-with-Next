@@ -11,15 +11,15 @@ import { ChangeEvent, FormEvent, useState } from "react";
 export default function CreateLinkForm() {
   const router = useRouter()
 
-  const [erro, setError] = useState("");
+  const [error, setError] = useState("");
   const [link, setLink] = useState("");
 
-  function handleLinkChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleLinkChange(e: React.ChangeEvent<HTMLInputElement>) {
     setLink(sanitizeLink(e.target.value));
     setError("")
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>){
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>){
     e.preventDefault()
 
     // Usuário não digita o link
@@ -40,11 +40,11 @@ export default function CreateLinkForm() {
     <>
       <form onSubmit={handleSubmit} className="w-full flex items-center gap-2">
         <span>projectinbio.com/</span>
-        <TextInput value={link} onChange={(e) => handleLinkChange} />
+        <TextInput value={link} onChange={handleLinkChange} />
         <Button className="w-31.5">Criar</Button>
       </form>
       <div>
-        <span className="text-accent-pink">{erro}</span>
+        <span className="text-accent-pink">{error}</span>
       </div>
     </>
   );

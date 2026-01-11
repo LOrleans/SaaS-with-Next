@@ -1,12 +1,22 @@
 "use server";
 
+import { Link } from "../actions/add-custom-links";
 import { db } from "../lib/firebase";
 
 export type ProfileData = {
   userId: string;
   totalVisits: number;
   createdAt: number;
-  // adicionar mais depois - todo
+  socialMedias?: {
+    github: string;
+    instagram: string;
+    linkedin: string;
+    twitter: string;
+  };
+  link1?: Link;
+  link2?: Link;
+  link3?: Link;
+  updatedAt?: number;
 };
 
 export type ProjectData = {
@@ -34,4 +44,4 @@ export async function getProfileProjects(profileId: string) {
     .get();
 
   return snapshot.docs.map((doc) => doc.data() as ProjectData);
-}         
+}

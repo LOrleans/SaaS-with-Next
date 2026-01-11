@@ -1,15 +1,25 @@
 import TextInput from "../ui/text-input";
 import Button from "../ui/button";
-import UserCard from "../commons/UserCard";
 import TotalVisits from "../commons/TotalVisits";
 import ProjectCard from "../commons/ProjectCard";
+import UserCard from "../commons/user-card/UserCard";
 
 export default function Hero() {
+  const mockProject = {
+    id: "1",
+    createdAt: 0,
+    projectName: "Projeto Modelo",
+    projectDescription: "Descrição do projeto",
+    imagePath: "",
+    userId: "1",
+    totalVisits: 10,
+  } as any;
+
   return (
     <div className="flex h-screen">
       <div className="w-full flex flex-col gap-2 mt-[35vh]">
         <h1 className="text-5xl font-bold text-white leading-16">
-          Seus projetos e redes 
+          Seus projetos e redes
           <br />
           sociais em um único link
         </h1>
@@ -28,14 +38,22 @@ export default function Hero() {
         <div className="relative">
           <UserCard />
           {/* Original estava -bottom-[7%] -right-[45%] */}
-          <div className="absolute -bottom-[3%] -right-[35%]"> 
+          <div className="absolute -bottom-[3%] -right-[35%]">
             <TotalVisits />
           </div>
-          <div className="absolute top-[20%] -left-[45%] -z-10"> 
-            <ProjectCard />
+          <div className="absolute top-[20%] -left-[45%] -z-10">
+            <ProjectCard
+              project={mockProject}
+              isOwner={false}
+              img="/project1.jpg"
+            />
           </div>
-          <div className="absolute -top-[5%] -left-[55%] -z-10"> 
-            <ProjectCard />
+          <div className="absolute -top-[5%] -left-[55%] -z-10">
+            <ProjectCard
+              project={mockProject}
+              isOwner={false}
+              img="/project2.jpg"
+            />
           </div>
         </div>
       </div>

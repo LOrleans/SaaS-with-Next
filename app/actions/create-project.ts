@@ -26,7 +26,7 @@ export async function createProject(formData: FormData) {
 
   try {
     return await db
-      .collection("projects")
+      .collection("profiles")
       .doc(profileId)
       .collection("projects")
       .doc()

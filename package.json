@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/firebase-adapter": "^2.11.1",
+    "@stripe/stripe-js": "^8.6.1",
     "browser-image-compression": "^2.0.2",
     "clsx": "^2.1.1",
     "firebase-admin": "^13.6.0",
@@ -18,6 +19,7 @@
     "next-auth": "^5.0.0-beta.30",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "stripe": "^20.1.2",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
@@ -29,5 +31,8 @@
     "eslint-config-next": "16.1.1",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@auth/core": "0.41.1"
   }
 }

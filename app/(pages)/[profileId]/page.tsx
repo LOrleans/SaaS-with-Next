@@ -6,7 +6,7 @@ import {
   getProfileProjects,
 } from "@/app/server/getProfileData";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import NewProject from "./newProject";
 import { getDownloadURLFromPath } from "@/app/lib/firebase";
 import UserCard from "@/app/components/commons/user-card/UserCard";
@@ -30,18 +30,22 @@ export default async function ProfilePage({
 
   // TODO: Adicionar page view
 
-  // Se o usuario não estiver mais no trial, nao deixar ver o projeto. Redirecionar para upgrade
+  if (isOwner && !session?.user.isSubscribed && !session?.user.isTrial) {
+    redirect(`/${profileId}/upgrade`);
+  }
 
   return (
     <div className="relative h-screen flex p-20 overflow-hidden">
-      <div className="fixed top-0 left-0 w-full flex justify-center items-center gap-1 py-2 bg-background-tertiary">
-        <span>Você está usando a versão trial.</span>
-        <Link href={`/${profileId}/upgrade`}>
-          <button className="text-accent-green font-bold cursor-pointer">
-            Faça o upgrade agora!
-          </button>
-        </Link>
-      </div>
+      {session?.user.isTrial && !session.user.isSubscribed && (
+        <div className="fixed top-0 left-0 w-full flex justify-center items-center gap-1 py-2 bg-background-tertiary">
+          <span>Você está usando a versão trial.</span>
+          <Link href={`/${profileId}/upgrade`}>
+            <button className="text-accent-green font-bold">
+              Faça o upgrade agora!
+            </button>
+          </Link>
+        </div>
+      )}
       <div className="w-1/2 flex justify-center h-min">
         <UserCard profileData={profileData} isOwner={isOwner} />
       </div>
@@ -57,7 +61,7 @@ export default async function ProfilePage({
         {isOwner && <NewProject profileId={profileId} />}
       </div>
       <div className="absolute bottom-4 right-0 left-0 w-min mx-auto">
-        <TotalVisits />
+        <TotalVisits totalVisits={profileData.totalVisits} showBar/>
       </div>
     </div>
   );

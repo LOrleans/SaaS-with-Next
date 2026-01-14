@@ -13,7 +13,7 @@ export default async function UserCard({
   isOwner,
 }: {
   profileData?: ProfileData;
-  isOwner: boolean;
+  isOwner?: boolean;
 }) {
   const icons = [Github, Instagram, Linkedin, Twitter];
 

@@ -10,10 +10,11 @@ export default function ProjectCard({
   img,
 }: {
   project: ProjectData;
-  isOwner: boolean;
+  isOwner?: boolean;
   img?: string;
 }) {
   const formattedUrl = formatUrl(project.projectUrl);
+  
 
   function handleClick() {
     console.log("clicked"); // TODO: implementar analytics
